@@ -46,8 +46,8 @@ module Mongoid::Audit
         before_create :track_create if options[:track_create]
         before_destroy :track_destroy if options[:track_destroy]
 
-        Mongoid::History.trackable_class_options ||= {}
-        Mongoid::History.trackable_class_options[scope_name] = options
+        Mongoid::Audit.trackable_class_options ||= {}
+        Mongoid::Audit.trackable_class_options[scope_name] = options
       end
 
       def track_history?
@@ -71,7 +71,7 @@ module Mongoid::Audit
 
     module MyInstanceMethods
       def history_tracks
-        @history_tracks ||= Mongoid::History.tracker_class.where(:scope => history_trackable_options[:scope], :association_chain => association_hash)
+        @history_tracks ||= Mongoid::Audit.tracker_class.where(:scope => history_trackable_options[:scope], :association_chain => association_hash)
       end
 
       #  undo :from => 1, :to => 5
@@ -248,7 +248,7 @@ module Mongoid::Audit
           modified[k] = m unless m.nil?
         end
 
-        return original.easy_diff modified
+        original.easy_diff modified
       end
 
     end
