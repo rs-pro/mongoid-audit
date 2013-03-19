@@ -7,7 +7,7 @@ module Mongoid::Audit
         scope_name = self.collection_name.to_s.singularize.to_sym
         default_options = {
           :on             =>  :all,
-          :except         =>  [:created_at, :updated_at],
+          :except         =>  [:created_at, :updated_at, :deleted_at, :c_at, :u_at],
           :modifier_field =>  :modifier,
           :version_field  =>  :version,
           :scope          =>  scope_name,

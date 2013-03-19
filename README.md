@@ -13,6 +13,7 @@ ____________
 
 Add this line to your application's Gemfile:
 
+    # must be after rails_admin, if you use it
     gem 'mongoid-audit'
 
 And then execute:
@@ -25,6 +26,12 @@ Or install it yourself as:
 
 Usage
 -----
+
+** Rails Admin Integration **
+
+    # note that instead of a user class, you pass in history tracker table name as second argument
+    config.audit_with :mongoid_audit, 'HistoryTracker'
+
 
 **Create a history tracker**
 

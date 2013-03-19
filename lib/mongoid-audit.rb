@@ -14,6 +14,10 @@ module Mongoid
   end
 end
 
+if Object.const_defined?("RailsAdmin")
+  require "mongoid-audit/rails_admin"
+end
+
 require 'mongoid-audit/tracker'
 require 'mongoid-audit/trackable'
 require 'mongoid-audit/sweeper'

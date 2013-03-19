@@ -17,6 +17,8 @@ module Mongoid::Audit
 
       Mongoid::Audit.tracker_class_name = self.name.tableize.singularize.to_sym
 
+      index({'association_chain.name' => 1, 'association_chain.id' => 1})
+
       # install model observer and action controller filter
       Mongoid::Audit::Sweeper.send(:observe, Mongoid::Audit.tracker_class_name)
       if defined?(ActionController) and defined?(ActionController::Base)
