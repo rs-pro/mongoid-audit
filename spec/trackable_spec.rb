@@ -35,7 +35,7 @@ describe Mongoid::Audit::Trackable do
         :modifier_field =>  :modifier,
         :version_field  =>  :version,
         :scope          =>  :my_model,
-        :except         =>  ["created_at", "updated_at", "version", "modifier_id", "_id", "id"],
+        :except         =>  ["created_at", "updated_at", "deleted_at", "c_at", "u_at", "version", "modifier_id", "_id", "id"],
         :track_create   =>  false,
         :track_update   =>  true,
         :track_destroy  =>  false,

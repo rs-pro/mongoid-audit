@@ -181,12 +181,13 @@ For more examples, check out [spec/integration/integration_spec.rb](https://gith
 
 ## Credits
 
-This gem is loosely based on https://github.com/aq1018/mongoid-history
+This gem is based on https://github.com/aq1018/mongoid-history
 
 The original gem didn't work correctly for us, when not setting modifier manually, so we rewrote it a bit.
 Seems to work fully now, including manually setting modifier
 
 Mongoid-history Copyright (c) 2011-2012 Aaron Qian. MIT License. See [LICENSE.txt](https://github.com/aq1018/mongoid-history/blob/master/LICENSE.txt) for further details.
+
 Mongoid-audit Copyright (c) 2013 http://rocketscience.pro MIT License.
 
 ## Contributing
