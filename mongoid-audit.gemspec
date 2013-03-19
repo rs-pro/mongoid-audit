@@ -18,10 +18,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_runtime_dependency('easy_diff', ">= 0")
-  gem.add_runtime_dependency('mongoid', ">= 3.0.4")
+  gem.add_runtime_dependency('mongoid', ">= 3.0.0")
 
-  gem.add_development_dependency('rspec', ["~> 2.12.0"])
-  gem.add_development_dependency('bundler', ['>= 1.0.0'])
-  gem.add_development_dependency('database_cleaner', [">= 0.8.0"])
-  gem.add_development_dependency('activesupport', '~> 3.2.11')
+  gem.add_development_dependency('rspec', "~> 2.13.0")
+  gem.add_development_dependency('bundler', '>= 1.0.0')
+  gem.add_development_dependency('database_cleaner', "~> 0.9.1")
+  gem.add_development_dependency('activesupport', '~> 3.2.13')
 end
