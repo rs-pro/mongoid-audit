@@ -27,7 +27,7 @@ Or install it yourself as:
 Usage
 -----
 
-** Rails Admin Integration **
+**Rails Admin Integration**
 
     # note that instead of a user class, you pass in history tracker table name as second argument
     config.audit_with :mongoid_audit, 'HistoryTracker'
