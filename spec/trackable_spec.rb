@@ -9,7 +9,7 @@ describe Mongoid::Audit::Trackable do
   end
 
   after :each do
-    Mongoid::History.trackable_class_options = nil
+    Mongoid::Audit.trackable_class_options = nil
   end
 
   it "should have #track_history" do
@@ -17,16 +17,16 @@ describe Mongoid::Audit::Trackable do
   end
 
   it "should append trackable_class_options ONLY when #track_history is called" do
-    Mongoid::History.trackable_class_options.should be_blank
+    Mongoid::Audit.trackable_class_options.should be_blank
     MyModel.track_history
-    Mongoid::History.trackable_class_options.keys.should == [:my_model]
+    Mongoid::Audit.trackable_class_options.keys.should == [:my_model]
   end
 
   describe "#track_history" do
     before :each do
       class MyModel
         include Mongoid::Document
-        include Mongoid::History::Trackable
+        include Mongoid::Audit::Trackable
         track_history
       end
 
@@ -43,11 +43,11 @@ describe Mongoid::Audit::Trackable do
     end
 
     after :each do
-      Mongoid::History.trackable_class_options = nil
+      Mongoid::Audit.trackable_class_options = nil
     end
 
     it "should have default options" do
-      Mongoid::History.trackable_class_options[:my_model].should == @expected_option
+      Mongoid::Audit.trackable_class_options[:my_model].should == @expected_option
     end
 
     it "should define callback function #track_update" do
@@ -73,7 +73,7 @@ describe Mongoid::Audit::Trackable do
       end
 
       it "should have default options" do
-        Mongoid::History.trackable_class_options[:my_model].should == @expected_option
+        Mongoid::Audit.trackable_class_options[:my_model].should == @expected_option
       end
 
       it "should define #history_trackable_options" do
@@ -106,7 +106,7 @@ describe Mongoid::Audit::Trackable do
       it "should be disabled only for the class that calls disable_tracking" do
         class MyModel2
           include Mongoid::Document
-          include Mongoid::History::Trackable
+          include Mongoid::Audit::Trackable
           track_history
         end
 

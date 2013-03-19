@@ -21,7 +21,6 @@ module Mongoid::Audit
       Mongoid::Audit::Sweeper.send(:observe, Mongoid::Audit.tracker_class_name)
       if defined?(ActionController) and defined?(ActionController::Base)
         ActionController::Base.class_eval do
-          # around_filter Mongoid::History::Sweeper.instance
           before_filter { |controller| Mongoid::Audit::Sweeper.instance.before(controller) }
           after_filter { |controller| Mongoid::Audit::Sweeper.instance.after(controller) }
         end

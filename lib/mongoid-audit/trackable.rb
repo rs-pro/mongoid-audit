@@ -205,7 +205,7 @@ module Mongoid::Audit
         current_version = (self.send(history_trackable_options[:version_field]) || 0 ) + 1
         self.send("#{history_trackable_options[:version_field]}=", current_version)
 
-        track = Mongoid::History.tracker_class.create!(history_tracker_attributes(:update).merge(:version => current_version, :action => "update", :trackable => self))
+        track = Mongoid::Audit.tracker_class.create!(history_tracker_attributes(:update).merge(:version => current_version, :action => "update", :trackable => self))
         self.send("#{history_trackable_options[:modifier_field]}=", track.modifier)
 
         clear_memoization

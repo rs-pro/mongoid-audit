@@ -28,7 +28,7 @@ Usage
 
 **Create a history tracker**
 
-Create a new class to track histories. All histories are stored in this tracker. The name of the class can be anything you like. The only requirement is that it includes `Mongoid::History::Tracker`
+Create a new class to track histories. All histories are stored in this tracker. The name of the class can be anything you like. The only requirement is that it includes `Mongoid::Audit::Tracker`
 
 ```ruby
 # app/models/history_tracker.rb
@@ -97,7 +97,7 @@ class Post
   field           :rating
   embeds_many     :comments
 
-  # telling Mongoid::History how you want to track changes
+  # telling Mongoid::Audit how you want to track changes
   track_history   :on => [:title, :body],       # track title and body fields only, default is :all
                   :modifier_field => :modifier, # adds "referenced_in :modifier" to track who made the change, default is :modifier
                   :version_field => :version,   # adds "field :version, :type => Integer" to track current version, default is :version
