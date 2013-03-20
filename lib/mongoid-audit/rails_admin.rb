@@ -16,7 +16,7 @@ module RailsAdmin
         end
 
         def table
-          @version.trackable.name
+          @version.trackable.class.collection_name
         end
 
         def username
