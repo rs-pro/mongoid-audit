@@ -16,7 +16,7 @@ module RailsAdmin
         end
 
         def table
-          @version.trackable.class.collection_name
+          @version.association_chain.last['name']
         end
 
         def username
@@ -24,7 +24,7 @@ module RailsAdmin
         end
 
         def item
-          @version.trackable.id
+          @version.association_chain.last['id']
         end
       end
 
