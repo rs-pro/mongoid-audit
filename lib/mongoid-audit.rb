@@ -1,5 +1,6 @@
 require 'mongoid-audit/version'
 require 'easy_diff'
+require 'mongoid'
 
 module Mongoid
   module Audit
