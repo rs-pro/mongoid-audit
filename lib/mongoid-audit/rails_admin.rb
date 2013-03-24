@@ -8,7 +8,7 @@ module RailsAdmin
 
         def message
           @message = @version.action
-          @version.respond_to?(:modified) ? @message + " [" + @version.modified.to_a.map{ |c| c[0] + " = " + c[1].to_s }.join(", ") + "]" : @message
+          @version.respond_to?(:modified) ? @message + ' ' + table +  " [" + @version.modified.to_a.map{ |c| c[0] + " = " + c[1].to_s }.join(", ") + "]" : @message
         end
 
         def created_at
@@ -43,7 +43,7 @@ module RailsAdmin
         end
 
         def latest
-          @version_class.limit(100).map { |version| VersionProxy.new(version) }
+          @version_class.order_by([:_id, :desc]).limit(20).map { |version| VersionProxy.new(version) }
         end
 
         def delete_object(object, model, user)
