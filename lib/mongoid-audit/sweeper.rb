@@ -35,7 +35,7 @@ module Mongoid::Audit
       elsif controller.respond_to?(Mongoid::Audit.current_user_method, true)
         controller.send Mongoid::Audit.current_user_method
       else
-        controller.send current_user
+        nil
       end
     end
   end
