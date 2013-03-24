@@ -26,14 +26,16 @@ module Mongoid::Audit
     end
 
     def before_create(track)
-      track.modifier = current_user if track.modifier.nil?
+      track.modifier = audit_current_user if track.modifier.nil?
     end
 
-    def current_user
-      if controller.respond_to?(Mongoid::Audit.current_user_method, true)
+    def audit_current_user
+      if controller.nil?
+        nil
+      elsif controller.respond_to?(Mongoid::Audit.current_user_method, true)
         controller.send Mongoid::Audit.current_user_method
       else
-        nil
+        controller.send current_user
       end
     end
   end
