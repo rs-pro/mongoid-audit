@@ -8,7 +8,17 @@ module RailsAdmin
 
         def message
           @message = @version.action
-          @version.respond_to?(:modified) ? @message + ' ' + table +  " [" + @version.modified.to_a.map{ |c| c[0] + " = " + c[1].to_s }.join(", ") + "]" : @message
+          mods = @version.modified.to_a.map do |c|
+            if c[1].class.name == "Moped::BSON::Binary"
+              c[0] + " = {binary data}"
+            elsif c[1].to_s.length > 220
+              c[0] + " = " + c[1].to_s[0..200]
+            else
+              c[0] + " = " + c[1].to_s
+            end
+
+          end
+          @version.respond_to?(:modified) ? @message + ' ' + table +  " [" + mods.join(", ") + "]" : @message
         end
 
         def created_at
