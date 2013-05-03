@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_runtime_dependency('easy_diff', ">= 0")
-  gem.add_runtime_dependency('mongoid', ">= 3.0.0")
+  gem.add_runtime_dependency('mongoid', "~> 4.0.0")
 
   gem.add_development_dependency('rake')
   gem.add_development_dependency('rspec', "~> 2.13.0")

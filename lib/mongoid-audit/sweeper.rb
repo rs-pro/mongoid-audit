@@ -1,5 +1,5 @@
 module Mongoid::Audit
-  class Sweeper < Mongoid::Observer
+  class Sweeper < ActiveModel::Observer
     def controller
       Thread.current[:mongoid_history_sweeper_controller]
     end
