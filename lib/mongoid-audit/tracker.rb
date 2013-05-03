@@ -5,6 +5,8 @@ module Mongoid::Audit
     included do
       include Mongoid::Document
       include Mongoid::Timestamps
+      include ActiveModel::Observing
+
       attr_writer :trackable
 
       field       :association_chain,       :type => Array,     :default => []
@@ -18,15 +20,6 @@ module Mongoid::Audit
       Mongoid::Audit.tracker_class_name = self.name.tableize.singularize.to_sym
 
       index({'association_chain.name' => 1, 'association_chain.id' => 1})
-
-      # install model observer and action controller filter
-      Mongoid::Audit::Sweeper.send(:observe, Mongoid::Audit.tracker_class_name)
-      if defined?(ActionController) and defined?(ActionController::Base)
-        ActionController::Base.class_eval do
-          before_filter { |controller| Mongoid::Audit::Sweeper.instance.before(controller) }
-          after_filter { |controller| Mongoid::Audit::Sweeper.instance.after(controller) }
-        end
-      end
     end
 
     def undo!(modifier)
