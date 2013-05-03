@@ -19,10 +19,11 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency('easy_diff', ">= 0")
   gem.add_runtime_dependency('mongoid', "~> 4.0.0")
+  gem.add_runtime_dependency('rails-observers', "~> 0.1.1")
 
   gem.add_development_dependency('rake')
   gem.add_development_dependency('rspec', "~> 2.13.0")
   gem.add_development_dependency('bundler', '>= 1.0.0')
   gem.add_development_dependency('database_cleaner', "~> 0.9.1")
-  gem.add_development_dependency('activesupport', '~> 3.2.13')
+  gem.add_development_dependency('activesupport', '~> 4.0.0')
 end
