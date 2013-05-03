@@ -1,6 +1,7 @@
 require 'mongoid-audit/version'
 require 'easy_diff'
 require 'mongoid'
+require 'rails-observers'
 
 module Mongoid
   module Audit
