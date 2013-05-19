@@ -4,9 +4,9 @@ Mongoid::Audit
 Mongoid Audit is a fork of mongoid-history https://github.com/aq1018/mongoid-history
 
 Fork differences:
-Rails 4 support
-Built in rails_admin auditing support
-Properly setting user all the time
+ * Rails 4 support
+ * Built in rails_admin auditing support
+ * Properly setting user all the time
 
 In case of problems, you can try mongoid-history, which didn't work properly for us.
 
