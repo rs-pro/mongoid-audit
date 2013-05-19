@@ -7,7 +7,7 @@ module Mongoid::Audit
         scope_name = self.collection_name.to_s.singularize.to_sym
         default_options = {
           :on             =>  :all,
-          :except         =>  [:created_at, :updated_at, :deleted_at, :c_at, :u_at],
+          :except         =>  [],
           :modifier_field =>  :modifier,
           :version_field  =>  :version,
           :scope          =>  scope_name,
@@ -22,6 +22,7 @@ module Mongoid::Audit
         # manually ensure _id, id, version will not be tracked in history
         options[:except] = [options[:except]] unless options[:except].is_a? Array
         options[:except] << options[:version_field]
+        options[:except] += [:created_at, :updated_at, :deleted_at, :c_at, :u_at]
         options[:except] << "#{options[:modifier_field]}_id".to_sym
         options[:except] += [:_id, :id]
         options[:except] = options[:except].map(&:to_s).flatten.compact.uniq
