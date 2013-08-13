@@ -20,6 +20,24 @@ module Mongoid::Audit
       Mongoid::Audit.tracker_class_name = self.name.tableize.singularize.to_sym
 
       index({'association_chain.name' => 1, 'association_chain.id' => 1})
+
+      before_create do
+        notify_observers(:before_create)
+      end
+
+=begin
+      Mongoid::Interceptable::CALLBACKS.each do |callback|
+        callback_method = :"_notify_#{Mongoid::Audit.tracker_class_name}_#{callback}"
+        module_eval <<-RUBY, __FILE__, __LINE__+1
+          #{callback} #{callback_method.inspect}
+          def #{callback_method}(&block)
+            notify_observers(#{callback.inspect}, &block)
+            true
+          end
+          private #{callback_method.inspect}
+        RUBY
+      end
+=end
     end
 
     def undo!(modifier)

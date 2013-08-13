@@ -14,6 +14,7 @@ describe Mongoid::Audit do
       field           :title
       field           :body
       field           :rating
+      field           :views
 
       embeds_many     :comments
       embeds_one      :section
@@ -361,7 +362,6 @@ describe Mongoid::Audit do
 
     describe "embedded with cascading callbacks" do
       before(:each) do
-        Mongoid.instantiate_observers
         Thread.current[:mongoid_history_sweeper_controller] = self
         self.stub!(:current_user).and_return @user
         @tag_foo = @post.tags.create(:title => "foo", :updated_by => @user)
