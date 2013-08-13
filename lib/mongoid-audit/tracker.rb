@@ -21,9 +21,7 @@ module Mongoid::Audit
 
       index({'association_chain.name' => 1, 'association_chain.id' => 1})
 
-      before_create do
-        notify_observers(:before_create)
-      end
+      before_create :_notify_observer
 
 =begin
       Mongoid::Interceptable::CALLBACKS.each do |callback|
@@ -166,6 +164,10 @@ private
         documents << doc
       end while( !chain.empty? )
       documents
+    end
+
+    def _notify_observer( &block )
+      notify_observers( :before_create, &block )
     end
 
   end
