@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_runtime_dependency('easy_diff', ">= 0")
+  gem.add_runtime_dependency('rails', ">= 3.0")
   gem.add_runtime_dependency('mongoid', [">= 3.0", "< 5.0"])
   gem.add_runtime_dependency('rails-observers', "~> 0.1.1")
 
