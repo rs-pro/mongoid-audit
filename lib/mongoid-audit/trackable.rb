@@ -35,7 +35,7 @@ module Mongoid::Audit
         end
 
         field options[:version_field].to_sym, :type => Integer
-        belongs_to options[:modifier_field].to_sym, :class_name => Mongoid::Audit.modifier_class_name
+        belongs_to options[:modifier_field].to_sym, :class_name => Mongoid::Audit.modifier_class_name, inverse_of: nil
 
         include MyInstanceMethods
         extend SingletonMethods

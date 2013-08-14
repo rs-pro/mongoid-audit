@@ -21,21 +21,23 @@ module Mongoid::Audit
 
       index({'association_chain.name' => 1, 'association_chain.id' => 1})
 
-      before_create :_notify_observer
-
-=begin
       Mongoid::Interceptable::CALLBACKS.each do |callback|
         callback_method = :"_notify_#{Mongoid::Audit.tracker_class_name}_#{callback}"
         module_eval <<-RUBY, __FILE__, __LINE__+1
           #{callback} #{callback_method.inspect}
           def #{callback_method}(&block)
-            notify_observers(#{callback.inspect}, &block)
-            true
+            if "#{callback}".start_with?( 'around_' )
+              notify_observers(#{callback.inspect}, &block)
+              yield
+            else
+              notify_observers(#{callback.inspect}, &block)
+              true
+            end
           end
           private #{callback_method.inspect}
         RUBY
       end
-=end
+
     end
 
     def undo!(modifier)
@@ -89,7 +91,6 @@ module Mongoid::Audit
     def trackable_parent
       @trackable_parent ||= trackable_parents_and_trackable[-2]
     end
-
 
     def affected
       @affected ||= (modified.keys | original.keys).inject({}){ |h,k| h[k] =
@@ -165,10 +166,5 @@ private
       end while( !chain.empty? )
       documents
     end
-
-    def _notify_observer( &block )
-      notify_observers( :before_create, &block )
-    end
-
   end
 end
