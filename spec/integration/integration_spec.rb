@@ -14,6 +14,7 @@ describe Mongoid::Audit do
       field           :title
       field           :body
       field           :rating
+      field           :views
 
       embeds_many     :comments
       embeds_one      :section
@@ -50,6 +51,8 @@ describe Mongoid::Audit do
       include Mongoid::Timestamps
       include Mongoid::Audit::Trackable
 
+      has_and_belongs_to_many :own_restaurants, class_name: 'Restaurant', inverse_of: :owners
+
       field             :email
       field             :name
       track_history     :except => [:email]
@@ -64,6 +67,17 @@ describe Mongoid::Audit do
 
       field             :title
       track_history     :on => [:title], :scope => :post, :track_create => true, :track_destroy => true, :modifier_field => :updated_by
+    end
+
+    class Restaurant 
+      include Mongoid::Document
+      include Mongoid::Audit::Trackable
+
+      has_and_belongs_to_many :owners, class_name: 'User', inverse_of: nil
+
+      field             :title
+
+      track_history     :on => [:title], :track_create => true, :track_destroy => true
     end
   end
 
@@ -361,7 +375,6 @@ describe Mongoid::Audit do
 
     describe "embedded with cascading callbacks" do
       before(:each) do
-        Mongoid.instantiate_observers
         Thread.current[:mongoid_history_sweeper_controller] = self
         self.stub!(:current_user).and_return @user
         @tag_foo = @post.tags.create(:title => "foo", :updated_by => @user)
@@ -546,7 +559,12 @@ describe Mongoid::Audit do
           @comment.redo! @user, :last => 1
           @comment.title.should == "Test5"
         end
+      end
+    end
 
+    describe "duplicate relations" do
+      it "should save correct relation" do
+        lambda{ Restaurant.create!( title: 'test', modifier_id: @user.id ) }.should_not raise_error
       end
     end
   end

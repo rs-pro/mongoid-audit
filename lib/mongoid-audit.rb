@@ -3,8 +3,7 @@ require 'easy_diff'
 require 'mongoid'
 require 'rails-observers'
 require 'rails/observers/active_model/active_model'
-
-
+require 'rails'
 
 module Mongoid
   module Audit
@@ -19,22 +18,18 @@ module Mongoid
   end
 end
 
-unless Mongoid.const_defined?('Observer')
-  require "rails"
-  module Rails
-    module Mongoid
-      class Railtie < Rails::Railtie
-        initializer "instantiate observers" do
-          config.after_initialize do
-            ::Mongoid::Audit.tracker_class.add_observer ::Mongoid::Audit::Sweeper.instance
+module Rails
+  module Mongoid
+    class Railtie < Rails::Railtie
+      initializer "instantiate observers" do
+        config.after_initialize do
+          ::Mongoid::Audit.tracker_class.add_observer( ::Mongoid::Audit::Sweeper.instance )
 
-            # install model observer and action controller filter
-            # Mongoid::Audit::Sweeper.send(:observe, Mongoid::Audit.tracker_class_name)
-            if defined?(ActionController) and defined?(ActionController::Base)
-              ActionController::Base.class_eval do
-                before_filter { |controller| ::Mongoid::Audit::Sweeper.instance.before(controller) }
-                after_filter { |controller| ::Mongoid::Audit::Sweeper.instance.after(controller) }
-              end
+          # install model observer and action controller filter
+          if defined?(ActionController) and defined?(ActionController::Base)
+            ActionController::Base.class_eval do
+              before_filter { |controller| ::Mongoid::Audit::Sweeper.instance.before(controller) }
+              after_filter { |controller| ::Mongoid::Audit::Sweeper.instance.after(controller) }
             end
           end
         end

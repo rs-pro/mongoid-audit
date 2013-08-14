@@ -12,6 +12,11 @@ describe Mongoid::Audit::Trackable do
     Mongoid::Audit.trackable_class_options = nil
   end
 
+  def compare( option )
+    option[:except].sort! unless option[:except].nil?
+    option.should == @expected_option
+  end
+
   it "should have #track_history" do
     MyModel.should respond_to :track_history
   end
@@ -35,7 +40,7 @@ describe Mongoid::Audit::Trackable do
         :modifier_field =>  :modifier,
         :version_field  =>  :version,
         :scope          =>  :my_model,
-        :except         =>  ["created_at", "updated_at", "deleted_at", "c_at", "u_at", "version", "modifier_id", "_id", "id"],
+        :except         =>  ["version", "created_at", "updated_at", "deleted_at", "c_at", "u_at", "modifier_id", "_id", "id"].sort,
         :track_create   =>  false,
         :track_update   =>  true,
         :track_destroy  =>  false,
@@ -47,7 +52,7 @@ describe Mongoid::Audit::Trackable do
     end
 
     it "should have default options" do
-      Mongoid::Audit.trackable_class_options[:my_model].should == @expected_option
+      compare( Mongoid::Audit.trackable_class_options[:my_model] )
     end
 
     it "should define callback function #track_update" do
@@ -63,7 +68,7 @@ describe Mongoid::Audit::Trackable do
     end
 
     it "should define #history_trackable_options" do
-      MyModel.history_trackable_options.should == @expected_option
+      compare( MyModel.history_trackable_options )
     end
 
     context "sub-model" do
@@ -73,11 +78,11 @@ describe Mongoid::Audit::Trackable do
       end
 
       it "should have default options" do
-        Mongoid::Audit.trackable_class_options[:my_model].should == @expected_option
+        compare( Mongoid::Audit.trackable_class_options[:my_model] )
       end
 
       it "should define #history_trackable_options" do
-        MySubModel.history_trackable_options.should == @expected_option
+        compare( MySubModel.history_trackable_options )
       end
     end
 
@@ -114,8 +119,6 @@ describe Mongoid::Audit::Trackable do
           MyModel2.new.track_history?.should == true
         end
       end
-
     end
-
   end
 end
