@@ -567,5 +567,94 @@ describe Mongoid::Audit do
         lambda{ Restaurant.create!( title: 'test', modifier_id: @user.id ) }.should_not raise_error
       end
     end
+
+
+    describe "rails admin history" do 
+      before :each do
+        @restaurant = Restaurant.create!( title: 'test', modifier_id: @user.id )
+        @adapter = ::RailsAdmin::Extensions::MongoidAudit::AuditingAdapter.new( nil )
+        @model = Struct.new( :model_name ).new( 'Restaurant' )
+      end
+      
+      it "should list all records from history table" do 
+        query = ''
+
+        items = @adapter.listing_for_model(@model, query, false, 'false', true, 1, 10)
+
+        expect( items ).not_to be_empty
+
+        item = items.first
+
+        expect( item.message ).to eq 'create Restaurant [title = test]'
+        expect( item.table ).to eq 'Restaurant'
+        expect( item.username ).to eq @user.email
+        expect( item.item ).to eq @restaurant.id
+
+        query = nil
+
+        items = @adapter.listing_for_model(@model, query, false, 'false', true, 1, 10)
+
+        expect( items ).not_to be_empty
+
+        item = items.first
+
+        expect( item.message ).to eq 'create Restaurant [title = test]'
+      end
+      
+      it "should list records from history table specified by query" do 
+        query = 'create'
+
+        items = @adapter.listing_for_model(@model, query, false, 'false', true, 1, 10)
+
+        expect( items ).not_to be_empty
+
+        item = items.first
+
+        expect( item.message ).to eq 'create Restaurant [title = test]'
+        expect( item.table ).to eq 'Restaurant'
+        expect( item.username ).to eq @user.email
+        expect( item.item ).to eq @restaurant.id
+      end
+      
+      it "should list records from history table specified by item" do 
+        query = ''
+
+        items = @adapter.listing_for_object(@model, @restaurant, query, false, 'false', true, 1, 10)
+
+        expect( items ).not_to be_empty
+
+        item = items.first
+
+        expect( item.message ).to eq 'create Restaurant [title = test]'
+        expect( item.table ).to eq 'Restaurant'
+        expect( item.username ).to eq @user.email
+        expect( item.item ).to eq @restaurant.id
+
+        query = nil
+
+        items = @adapter.listing_for_object(@model, @restaurant, query, false, 'false', true, 1, 10)
+
+        expect( items ).not_to be_empty
+
+        item = items.first
+
+        expect( item.message ).to eq 'create Restaurant [title = test]'
+      end
+      
+      it "should list records from history table specified by item and query" do 
+        query = 'create'
+
+        items = @adapter.listing_for_object(@model, @restaurant, query, false, 'false', true, 1, 10)
+
+        expect( items ).not_to be_empty
+
+        item = items.first
+
+        expect( item.message ).to eq 'create Restaurant [title = test]'
+        expect( item.table ).to eq 'Restaurant'
+        expect( item.username ).to eq @user.email
+        expect( item.item ).to eq @restaurant.id
+      end
+    end
   end
 end

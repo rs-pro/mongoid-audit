@@ -8,6 +8,11 @@ require 'active_support/core_ext'
 require 'mongoid'
 require 'database_cleaner'
 
+module RailsAdmin
+  def self.add_extension(*args); end
+end
+require "mongoid-audit/rails_admin"
+
 Bundler.require
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each do |f|
@@ -15,4 +20,3 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each do |f|
 end
 
 require 'mongoid-audit'
-

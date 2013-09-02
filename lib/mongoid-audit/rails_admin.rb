@@ -70,7 +70,7 @@ module RailsAdmin
 
         def listing_for_model(model, query, sort, sort_reverse, all, page, per_page = (RailsAdmin::Config.default_items_per_page || 20))
           history = @version_class.where('association_chain.name' => model.model_name)
-          history = history.any_of(action: /.*#{query}.*/, modifier_id: /.*#{query}.*/) if query
+          history = history.any_of({action: /.*#{query}.*/}, {modifier_id: /.*#{query}.*/}) if query.present?
           if sort
             order = sort_reverse == "true" ? :desc : :asc
             history = history.order_by(sort.to_sym => order)
@@ -85,7 +85,7 @@ module RailsAdmin
 
         def listing_for_object(model, object, query, sort, sort_reverse, all, page, per_page = (RailsAdmin::Config.default_items_per_page || 20))
           history = @version_class.where('association_chain.name' => model.model_name, 'association_chain.id' => object.id)
-          history = history.any_of(message: /.*#{query}.*/, username: /.*#{query}.*/) if query
+          history = history.any_of({action: /.*#{query}.*/}, {username: /.*#{query}.*/}) if query.present?
           if sort
             order = sort_reverse == "true" ? :desc : :asc
             history = history.order_by(sort.to_sym => order)
