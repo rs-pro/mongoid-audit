@@ -12,6 +12,8 @@ In case of problems, you can try mongoid-history, which didn't work properly for
 
 [![Build Status](https://secure.travis-ci.org/rs-pro/mongoid-audit.png?branch=master)](http://travis-ci.org/rs-pro/mongoid-audit)
 [![Dependency Status](https://gemnasium.com/rs-pro/mongoid-audit.png)](https://gemnasium.com/rs-pro/mongoid-audit)
+[![Coverage Status](https://coveralls.io/repos/rs-pro/mongoid-audit/badge.png?branch=master)](https://coveralls.io/r/rs-pro/mongoid-audit?branch=master)
+[![Gem Version](https://badge.fury.io/rb/mongoid-audit.png)](http://badge.fury.io/rb/mongoid-audit)
 
 Mongoid-audit tracks historical changes for any document, including embedded ones. It achieves this by storing all history tracks in a single collection that you define. Embedded documents are referenced by storing an association path, which is an array of `document_name` and `document_id` fields starting from the top most parent document and down to the embedded document that should track history.
 
