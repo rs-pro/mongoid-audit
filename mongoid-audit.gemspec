@@ -17,14 +17,14 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency('easy_diff', ">= 0")
-  gem.add_runtime_dependency('rails', ">= 3.0")
-  gem.add_runtime_dependency('mongoid', [">= 3.0", "< 5.0"])
-  gem.add_runtime_dependency('rails-observers', "~> 0.1.1")
+  gem.add_dependency 'easy_diff', '~> 0.0.2'
+  gem.add_dependency 'mongoid', ['>= 4.0', '< 5.0']
+  gem.add_dependency 'rails-observers', '~> 0.1.2'
 
-  gem.add_development_dependency('rake')
-  gem.add_development_dependency('rspec', "~> 2.13.0")
-  gem.add_development_dependency('bundler', '>= 1.0.0')
-  gem.add_development_dependency('database_cleaner', "~> 0.9.1")
-  gem.add_development_dependency('activesupport', [">= 3.0", "< 5.0"])
+  gem.add_development_dependency "bundler", "~> 1.3"
+  gem.add_development_dependency "rake"
+  gem.add_development_dependency "rspec"
+  gem.add_development_dependency "database_cleaner"
+  gem.add_development_dependency "coveralls"
+  gem.add_development_dependency "activesupport", '~> 4.0.0'
 end

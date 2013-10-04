@@ -1,8 +1,10 @@
-Mongoid.load!("config/mongoid.yml")
+Mongoid.configure do |config|
+  config.connect_to "mongoid-audit-test"
+end
 
 RSpec.configure do |config|
   config.before :each do
-    HistoryTracker.add_observer( ::Mongoid::Audit::Sweeper.instance )
+    HistoryTracker.add_observer(::Mongoid::Audit::Sweeper.instance)
   end
   config.backtrace_clean_patterns = [
     # /\/lib\d*\/ruby\//,
