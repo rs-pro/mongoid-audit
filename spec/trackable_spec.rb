@@ -29,6 +29,8 @@ describe Mongoid::Audit::Trackable do
 
   describe "#track_history" do
     before :each do
+      Object.send(:remove_const, :MyModel) if Object.constants.include?(:MyModel)
+      
       class MyModel
         include Mongoid::Document
         include Mongoid::Audit::Trackable
@@ -73,6 +75,14 @@ describe Mongoid::Audit::Trackable do
 
     context "sub-model" do
       before :each do
+        Object.send(:remove_const, :MyModel) if Object.constants.include?(:MyModel)
+        Object.send(:remove_const, :MySubModel) if Object.constants.include?(:MySubModel)
+        
+        class MyModel
+          include Mongoid::Document
+          include Mongoid::Audit::Trackable
+          track_history
+        end
         class MySubModel < MyModel
         end
       end

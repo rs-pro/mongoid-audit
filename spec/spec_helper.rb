@@ -23,3 +23,6 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each do |f|
 end
 
 require 'mongoid-audit'
+class HistoryTracker
+  include Mongoid::Audit::Tracker
+end

@@ -2,10 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Mongoid::Audit do
   before :all do
-    class HistoryTracker
-      include Mongoid::Audit::Tracker
-    end
-
     class Post
       include Mongoid::Document
       include Mongoid::Timestamps
