@@ -336,6 +336,15 @@ describe Mongoid::Audit do
 
       it "should assign modifier" do
         @section.update_attributes(:title => "Business", :modifier => @another_user)
+        @post.reload
+        # just workaround strange mongoid #last bug for now
+        @post.history_tracks.to_a[-1].modifier.should == @another_user
+      end
+      
+      it "should update modifier" do
+        @section.update_attributes(:title => 'Technology 2', :modifier => @user)
+        @section.update_attributes(:title => "Business", :modifier => @another_user)
+        @post.reload
         @post.history_tracks.last.modifier.should == @another_user
       end
     end
@@ -376,7 +385,8 @@ describe Mongoid::Audit do
     describe "embedded with cascading callbacks" do
       before(:each) do
         Thread.current[:mongoid_history_sweeper_controller] = self
-        self.stub!(:current_user).and_return @user
+        # self.stub!(:current_user).and_return @user
+        allow(self).to receive(:current_user).and_return(@user)
         @tag_foo = @post.tags.create(:title => "foo", :updated_by => @user)
         @tag_bar = @post.tags.create(:title => "bar")
       end

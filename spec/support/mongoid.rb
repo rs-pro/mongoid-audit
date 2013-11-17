@@ -6,7 +6,7 @@ RSpec.configure do |config|
   config.before :each do
     HistoryTracker.add_observer(::Mongoid::Audit::Sweeper.instance)
   end
-  config.backtrace_clean_patterns = [
+  config.backtrace_exclusion_patterns = [
     # /\/lib\d*\/ruby\//,
     # /bin\//,
     # /gems/,
