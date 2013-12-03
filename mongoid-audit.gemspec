@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'easy_diff', '~> 0.0.2'
-  gem.add_dependency 'mongoid', ['>= 4.0', '< 5.0']
+  gem.add_dependency 'mongoid', ['>= 4.0.0.alpha1', '< 5.0']
   gem.add_dependency 'rails-observers', '~> 0.1.2'
 
   gem.add_development_dependency "bundler", "~> 1.3"
