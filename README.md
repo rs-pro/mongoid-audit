@@ -1,5 +1,9 @@
 ## Mongoid::Audit
 
+[![Gem Version](https://badge.fury.io/rb/mongoid-audit.png)](http://badge.fury.io/rb/mongoid-audit)
+[![Issues](http://img.shields.io/github/issues/rs-pro/mongoid-audit.svg)](https://github.com/rs-pro/mongoid-audit/issues)
+[![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/rs-pro/mongoid-audit/blob/master/MIT-LICENSE.txt)
+
 **MongoidAudit 1.0 is a complete rewrite and might break backwards compatibility**
 
 Since 1.0.0, mongoid_audit is no longer a fork, but a wrapper of [mongoid-history](https://github.com/aq1018/mongoid-history), providing
@@ -21,7 +25,7 @@ RailsAdmin history is fully supported.
 Add this line to your application's Gemfile:
 
     # must be after rails_admin, if you use it
-    gem 'mongoid-audit'
+    gem 'mongoid-audit', '~> 1.0.0.alpha.1'
 
 And then execute:
 
@@ -29,7 +33,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install mongoid-audit
+    $ gem install mongoid-audit --pre
 
 ## Usage
 
