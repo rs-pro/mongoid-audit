@@ -1,6 +1,7 @@
 ## Mongoid::Audit
 
 [![Gem Version](https://badge.fury.io/rb/mongoid-audit.png)](http://badge.fury.io/rb/mongoid-audit)
+[![Dependency Status](https://www.versioneye.com/user/projects/53ea131f8b6db55f150000b7/badge.svg)](https://www.versioneye.com/user/projects/53ea131f8b6db55f150000b7)
 [![Issues](http://img.shields.io/github/issues/rs-pro/mongoid-audit.svg)](https://github.com/rs-pro/mongoid-audit/issues)
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/rs-pro/mongoid-audit/blob/master/MIT-LICENSE.txt)
 
