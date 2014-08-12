@@ -1,34 +1,21 @@
-require 'mongoid-audit/version'
-require 'easy_diff'
 require 'mongoid'
-require 'rails-observers'
-require 'rails/observers/active_model/active_model'
+require 'mongoid-history'
+require 'mongoid_userstamp'
+require 'kaminari'
+require 'kaminari/hooks'
+require 'kaminari/models/mongoid_extension'
 
-module Mongoid
-  module Audit
-    mattr_accessor :tracker_class_name
-    mattr_accessor :trackable_class_options
-    mattr_accessor :modifier_class_name
-    mattr_accessor :current_user_method
+require 'mongoid-audit/version'
+require 'mongoid-audit/trackable'
+require 'mongoid-audit/history_tracker'
+require 'mongoid-audit/railtie'
 
-    def self.tracker_class
-      @tracker_class ||= tracker_class_name.to_s.classify.constantize
-    end
-  end
-end
-
-if defined? Rails::Railtie
-  require 'mongoid-audit/railtie'
-end
-
-if Object.const_defined?("RailsAdmin")
+begin; require 'rails_admin'; rescue LoadError; end
+if defined? ::RailsAdmin
   require "mongoid-audit/rails_admin"
 end
 
-require 'mongoid-audit/tracker'
-require 'mongoid-audit/trackable'
-require 'mongoid-audit/sweeper'
+Mongoid::History.tracker_class_name = :history_tracker
+Mongoid::History.current_user_method = :current_user
+Mongoid::History.modifier_class_name = "User"
 
-Mongoid::Audit.modifier_class_name = "User"
-Mongoid::Audit.trackable_class_options = {}
-Mongoid::Audit.current_user_method ||= :current_user

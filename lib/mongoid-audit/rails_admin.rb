@@ -8,6 +8,12 @@ module RailsAdmin
 
         def message
           @message = @version.action
+          if @message == 'create'
+            return 'new'
+          end
+          if @message == 'destroy'
+            return 'delete'
+          end
           mods = @version.modified.to_a.map do |c|
             if c[1].class.name == "Moped::BSON::Binary" || c[1].class.name == "BSON::Binary"
               c[0] + " = {binary data}"
@@ -30,7 +36,7 @@ module RailsAdmin
         end
 
         def username
-          @version.modifier.try(:email) || @version.modifier
+          @version.updater.try(:email) || @version.updater
         end
 
         def item
@@ -52,8 +58,13 @@ module RailsAdmin
           @version_class = version_class.to_s.constantize
         end
 
-        def latest
-          @version_class.order_by([:_id, :desc]).limit(20).map { |version| VersionProxy.new(version) }
+        def latest(include_empty_modifier = false)
+          versions = @version_class
+          unless include_empty_modifier
+            versions.where(:updater_id.exists => true)
+          end
+          versions = versions.desc(:_id).limit(20)
+          versions.map { |version| VersionProxy.new(version) }
         end
 
         def delete_object(object, model, user)
@@ -69,40 +80,40 @@ module RailsAdmin
         end
 
         def listing_for_model(model, query, sort, sort_reverse, all, page, per_page = (RailsAdmin::Config.default_items_per_page || 20))
-          history = @version_class.where('association_chain.name' => model.model_name)
-          history = history.any_of({action: /.*#{query}.*/}, {modifier_id: /.*#{query}.*/}) if query.present?
-          if sort
-            order = sort_reverse == "true" ? :desc : :asc
-            history = history.order_by(sort.to_sym => order)
-          else
-            history = history.order_by(created_at: :desc)
-          end
-
-          history = all ? history.entries : history.send(Kaminari.config.page_method_name, page.presence || "1").per(per_page)
-
-          history.map{|version| VersionProxy.new(version)}
+          listing_for_model_or_object(model, nil, query, sort, sort_reverse, all, page, per_page)
         end
 
         def listing_for_object(model, object, query, sort, sort_reverse, all, page, per_page = (RailsAdmin::Config.default_items_per_page || 20))
-          history = @version_class.where('association_chain.name' => model.model_name, 'association_chain.id' => object.id)
-          history = history.any_of({action: /.*#{query}.*/}, {username: /.*#{query}.*/}) if query.present?
-          if sort
-            order = sort_reverse == "true" ? :desc : :asc
-            history = history.order_by(sort.to_sym => order)
-          else
-            history = history.order_by(created_at: :desc)
-          end
-          history = all ? history.entries : history.send(Kaminari.config.page_method_name, page.presence || "1").per(per_page)
-
-          history.map{|version| VersionProxy.new(version)}
+          listing_for_model_or_object(model, object, query, sort, sort_reverse, all, page, per_page)
         end
+
+        protected
+          def listing_for_model_or_object(model, object, query, sort, sort_reverse, all, page, per_page)
+            if sort.present?
+              sort = COLUMN_MAPPING[sort.to_sym]
+            else
+              sort = :created_at
+              sort_reverse = 'true'
+            end
+            model_name = model.model.name
+            if object
+              versions = @version_class.where('association_chain.name' => model.model_name, 'association_chain.id' => object.id)
+            else
+              versions = @version_class.where('association_chain.name' => model_name)
+            end
+            versions = versions.order_by([sort, sort_reverse == 'true' ? :desc : :asc])
+            unless all
+              page = 1 if page.nil?
+              versions = versions.send(Kaminari.config.page_method_name, page).per(per_page)
+            end
+            versions.map { |version| VersionProxy.new(version) }
+          end
       end
     end
   end
 end
 
-
-
 RailsAdmin.add_extension(:mongoid_audit, RailsAdmin::Extensions::MongoidAudit, {
   :auditing => true
 })
+
