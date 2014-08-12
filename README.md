@@ -2,8 +2,8 @@
 
 **MongoidAudit 1.0 is a complete rewrite and might break backwards compatibility**
 
-Since 1.0.0, mongoid_audit is no longer a fork, but a wrapper of (mongoid-history)[https://github.com/aq1018/mongoid-history], providing
-out-of-the-box Userstamp, RailsAdmin integration and much easier setup and configuration.
+Since 1.0.0, mongoid_audit is no longer a fork, but a wrapper of [mongoid-history](https://github.com/aq1018/mongoid-history), providing
+out-of-the-box Userstamp, RailsAdmin integration and easier setup and configuration.
 
 Database storage format for user / modifier in 1.0.0 was changed, since now glebtv_mongoid_userstamp gem is used to store
 modifier.
