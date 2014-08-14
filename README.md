@@ -14,7 +14,7 @@ out-of-the-box Userstamp, RailsAdmin integration and easier setup and configurat
 
 * delete the initializer (if you had default settings).
 
-* Database storage format for user / modifier in 1.0.0 was changed, since now glebtv_mongoid_userstamp gem is used to store modifier. To migrate your data you should do something like:
+* Database storage format for user / modifier in 1.0.0 was changed, since now [glebtv_mongoid_userstamp](https://github.com/glebtv/mongoid_userstamp) gem is used to store modifier. To migrate your data you should do something like:
   
     HistoryTracker.all.each{|ht| ht.rename(:modifier_id, :updater_id)
 
