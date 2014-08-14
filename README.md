@@ -12,24 +12,24 @@ out-of-the-box Userstamp, RailsAdmin integration and easier setup and configurat
 
 ### Migrating from 0.x.x
 
-* delete the initializer (if you had default settings).
+1) delete the initializer (if you had default settings).
 
-* replace
-
-    include Mongoid::Audit::Trackable
-    track_history track_create: true, track_destroy: true
-    
+2) replace
+```
+include Mongoid::Audit::Trackable
+track_history track_create: true, track_destroy: true
+```
 With:
-
-    include Trackable
-
-* Database storage format for user / modifier in 1.0.0 was changed, since now [glebtv_mongoid_userstamp](https://github.com/glebtv/mongoid_userstamp) gem is used to store modifier. To migrate your data you should do something like:
+```
+include Trackable
+```
+3)  Database storage format for user / modifier in 1.0.0 was changed, since now [glebtv_mongoid_userstamp](https://github.com/glebtv/mongoid_userstamp) gem is used to store modifier. To migrate your data you should do something like:
   
     HistoryTracker.all.each{|ht| ht.rename(:modifier_id, :updater_id)
 
-* This gem includes storing modifier, but it is done via ```glebtv_mongoid_userstamp``` and not directly.
+4) This gem includes storing modifier, but it is done via ```glebtv_mongoid_userstamp``` and not directly.
 
-* RailsAdmin auditing adapter is still fully supported.
+5) RailsAdmin auditing adapter is still fully supported.
 
 ## Installation
 
