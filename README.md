@@ -10,16 +10,17 @@
 Since 1.0.0, mongoid_audit is no longer a fork, but a wrapper of [mongoid-history](https://github.com/aq1018/mongoid-history), providing
 out-of-the-box Userstamp, RailsAdmin integration and easier setup and configuration.
 
-Database storage format for user / modifier in 1.0.0 was changed, since now glebtv_mongoid_userstamp gem is used to store
-modifier.
+### Migrating from 0.x.x
 
-To migrate your data do:
+* delete the initializer (if you had default settings).
+
+* Database storage format for user / modifier in 1.0.0 was changed, since now glebtv_mongoid_userstamp gem is used to store modifier. To migrate your data you should do something like:
   
     HistoryTracker.all.each{|ht| ht.rename(:modifier_id, :updater_id)
 
-This gem includes storing modifier, but it is done via ```glebtv_mongoid_userstamp``` and not directly.
+* This gem includes storing modifier, but it is done via ```glebtv_mongoid_userstamp``` and not directly.
 
-RailsAdmin history is fully supported.
+* RailsAdmin auditing adapter is still fully supported.
 
 ## Installation
 
