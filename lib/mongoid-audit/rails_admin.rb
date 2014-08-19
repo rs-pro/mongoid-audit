@@ -32,7 +32,20 @@ module RailsAdmin
         end
 
         def table
-          @version.association_chain.last['name']
+          if @version.association_chain.length == 1
+            @version.association_chain.last['name']
+          else
+            index = 0
+            assoc = @version.association_chain
+            while !assoc[index+1].nil?
+              table = assoc[index]['name'].constantize.relations[assoc[index+1]['name']][:class_name]
+              index += 1
+            end
+            table
+          end
+        rescue Exception => e
+          puts "mongoid-audit error: #{e.message}"
+          nil
         end
 
         def username
