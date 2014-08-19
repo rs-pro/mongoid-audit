@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mongoid-audit (1.0.0.alpha.1)
+    mongoid-audit (1.0.0.alpha.2)
       activesupport
       glebtv_mongoid_userstamp
       kaminari
@@ -11,19 +11,19 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (4.1.4)
-      actionview (= 4.1.4)
-      activesupport (= 4.1.4)
+    actionpack (4.1.5)
+      actionview (= 4.1.5)
+      activesupport (= 4.1.5)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.4)
-      activesupport (= 4.1.4)
+    actionview (4.1.5)
+      activesupport (= 4.1.5)
       builder (~> 3.1)
       erubis (~> 2.7.0)
-    activemodel (4.1.4)
-      activesupport (= 4.1.4)
+    activemodel (4.1.5)
+      activesupport (= 4.1.5)
       builder (~> 3.1)
-    activesupport (4.1.4)
+    activesupport (4.1.5)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
