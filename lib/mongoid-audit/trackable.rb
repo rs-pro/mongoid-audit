@@ -1,6 +1,7 @@
 module Trackable
   extend ActiveSupport::Concern
   include Mongoid::History::Trackable
+  include Mongoid::Userstamp
   included do
     track_history({
       track_create: true,
