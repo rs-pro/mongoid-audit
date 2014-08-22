@@ -58,13 +58,15 @@ Identical to Mongoid::History.
 See https://github.com/aq1018/mongoid-history
 
     include Mongoid::History::Trackable
+    include Mongoid::Userstamp
     track_history({
       track_create: true,
       track_destroy: true,
       track_update: true,
       modifier_field: :updater,
-      except: ["created_at", "updated_at", "c_at", "u_at"],
+      except: ["created_at", "updated_at", "c_at", "u_at", "clicks", "impressions", "some_other_your_field"],
     })
+
 
 ### Rails Admin Integration
 
