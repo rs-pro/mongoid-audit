@@ -38,7 +38,7 @@ module RailsAdmin
             index = 0
             assoc = @version.association_chain
             while !assoc[index+1].nil?
-              table = assoc[index]['name'].constantize.relations[assoc[index+1]['name']][:class_name]
+              table = assoc[index]['name'].constantize.relations[assoc[index+1]['name']].class_name
               index += 1
             end
             table
