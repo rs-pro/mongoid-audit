@@ -24,7 +24,7 @@ include Trackable
 ```
 3)  Database storage format for user / modifier in 1.0.0 was changed, since now [glebtv_mongoid_userstamp](https://github.com/glebtv/mongoid_userstamp) gem is used to store modifier. To migrate your data you should do something like:
   
-    HistoryTracker.all.each{|ht| ht.rename(:modifier_id, :updater_id)
+    HistoryTracker.all.each{|ht| ht.rename(modifier_id: :updater_id)}
 
 4) This gem includes storing modifier, but it is done via ```glebtv_mongoid_userstamp``` and not directly.
 
