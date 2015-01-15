@@ -7,7 +7,6 @@ require 'kaminari/models/mongoid_extension'
 
 require 'mongoid-audit/version'
 require 'mongoid-audit/trackable'
-require 'mongoid-audit/history_tracker'
 require 'mongoid-audit/railtie'
 
 begin; require 'rails_admin'; rescue LoadError; end

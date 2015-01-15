@@ -66,6 +66,15 @@ See https://github.com/aq1018/mongoid-history
       except: ["created_at", "updated_at", "c_at", "u_at", "clicks", "impressions", "some_other_your_field"],
     })
 
+### Setting modifier class name
+
+Add to an initializer:
+
+    Mongoid::History.modifier_class_name = 'Author'
+    Mongoid::Userstamp.config do |c|
+      c.user_reader = :current_admin
+      c.user_model = :admin
+    end
 
 ### Rails Admin Integration
 
