@@ -1,5 +1,5 @@
 require 'mongoid'
-require 'mongoid-history'
+require 'mongoid/history'
 require 'mongoid_userstamp'
 require 'kaminari'
 require 'kaminari/hooks'

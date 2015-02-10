@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'mongoid', '~> 4.0.0'
-  gem.add_dependency 'mongoid-history', '~> 0.4.4'
+  gem.add_dependency 'mongoid-history', '~> 0.4.5'
   gem.add_dependency 'activesupport'
   gem.add_dependency 'kaminari'
   gem.add_dependency 'glebtv_mongoid_userstamp'
