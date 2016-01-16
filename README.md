@@ -35,7 +35,7 @@ include Trackable
 Add this line to your application's Gemfile:
 
     # must be after rails_admin, if you use it
-    gem 'mongoid-audit', '~> 1.0.0'
+    gem 'mongoid-audit', '~> 1.1.0'
 
 And then execute:
 
