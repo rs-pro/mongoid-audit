@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mongoid-audit (1.2.1)
+    mongoid-audit (1.2.2)
       activesupport
       glebtv_mongoid_userstamp
       kaminari-mongoid

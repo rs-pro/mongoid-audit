@@ -1,6 +1,6 @@
 class HistoryTracker
   include Mongoid::History::Tracker
   include Mongoid::Userstamp
-  include Kaminari::MongoidExtension::Document
+  include Kaminari::Mongoid::MongoidExtension::Document
 end
 
