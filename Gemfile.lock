@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    mongoid-audit (1.2.0)
+    mongoid-audit (1.2.1)
       activesupport
       glebtv_mongoid_userstamp
-      kaminari
+      kaminari-mongoid
       mongoid (>= 4.0.0, < 7.0)
       mongoid-history (~> 0.5.0)
 
@@ -45,6 +45,8 @@ GEM
     kaminari (0.17.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
+    kaminari-mongoid (0.1.2)
+      kaminari
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mini_portile2 (2.1.0)

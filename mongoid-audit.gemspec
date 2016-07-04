@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'mongoid', ['>= 4.0.0', '< 7.0']
   gem.add_dependency 'mongoid-history', '~> 0.5.0'
   gem.add_dependency 'activesupport'
-  gem.add_dependency 'kaminari'
+  gem.add_dependency 'kaminari-mongoid'
   gem.add_dependency 'glebtv_mongoid_userstamp'
 
   gem.add_development_dependency "bundler"
