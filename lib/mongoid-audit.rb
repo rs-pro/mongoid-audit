@@ -2,7 +2,6 @@ require 'mongoid'
 require 'mongoid/history'
 require 'mongoid_userstamp'
 require 'kaminari'
-require 'kaminari/hooks'
 require 'kaminari/mongoid/mongoid_extension'
 
 require 'mongoid-audit/version'
