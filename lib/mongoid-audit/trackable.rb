@@ -8,6 +8,7 @@ module Trackable
       track_destroy: true,
       track_update: true,
       modifier_field: :updater,
+      modifier_field_optional: true,
       except: ["created_at", "updated_at", "c_at", "u_at"],
     })
   end
