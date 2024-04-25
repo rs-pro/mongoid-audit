@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'mongoid', ['>= 6.0.0', '< 8.0']
-  gem.add_dependency 'mongoid-history', '~> 0.8.0'
+  gem.add_dependency 'mongoid'
+  gem.add_dependency 'mongoid-history'
   gem.add_dependency 'activesupport'
   gem.add_dependency 'kaminari-mongoid'
   gem.add_dependency 'glebtv_mongoid_userstamp'
